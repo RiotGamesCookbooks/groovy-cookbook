@@ -19,9 +19,8 @@ ark "groovy" do
   action :install
 end
 
-file "/etc/profile.d/groovy_home.sh" do
-  content <<-EOS
-    export GROOVY_HOME=#{node[:groovy][:home]}
-  EOS
+template "/etc/profile.d/groovy_home.sh" do
   mode 0755
+  source "groovy_home.sh.erb"
+  variables(:groovy_home => node[:groovy][:home])
 end
